@@ -3,32 +3,47 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/templates/default.xhtml">
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
 	<ui:define name="content">
-		<h:form id="personform">
+		<h:form id="personForm">
 			<h:panelGrid columns="2">
 
-				<h:outputText value="Add Person with very simple form" />
-				<h:commandLink action="addSimple?faces-redirect=true">
-					<h:outputText value=" Add person " />
-				</h:commandLink>
+				<h:outputText value="#{msg.personNameLabel}" />
+				<h:inputText id="name" value="#{personBean.person.name}">
+					<a4j:ajax render="messages" execute="@this" />
+				</h:inputText>
 
-				<h:outputText value="Add Person with some validators" />
-				<h:commandLink action="addValidation?faces-redirect=true">
-					<h:outputText value=" Add person " />
-				</h:commandLink>
+				<h:outputText value="#{msg.personTitleLabel}" />
+				<h:inputText id="title" value="#{personBean.person.title}" />
 
-				<h:outputText value="Add Person with JSF 2.0 ajax support" />
-				<h:commandLink action="addAjax?faces-redirect=true">
-					<h:outputText value=" Add person " />
-				</h:commandLink>
 
-				<h:outputText value="Add Person with RichFaces support" />
-				<h:commandLink action="addRF?faces-redirect=true">
-					<h:outputText value=" Add person " />
-				</h:commandLink>
+				<h:outputText value="#{msg.personRentLabel}" />
 
+				<rich:calendar value="#{personBean.person.rent}"
+					id="calendar" datePattern="dd.MM.yyyy" showApplyButton="#{true}"
+					cellWidth="24px" cellHeight="22px" style="width:200px">
+					<a4j:ajax render="messages" execute="@this" />
+				</rich:calendar>
 			</h:panelGrid>
+
+			<h:panelGrid>
+				<h:messages for="" />
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+			</h:panelGrid>
+
+
+
+					<h:commandButton value="#{msg.personFormOKButton}"
+						action="#{personBean.addPerson}" />
+
+
+
+
 		</h:form>
+
 	</ui:define>
 </ui:composition>

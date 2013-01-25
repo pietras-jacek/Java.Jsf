@@ -61,15 +61,15 @@ public class PersonFormBean implements Serializable {
 	// Validators
 
 	// Business logic validation
-	public void uniquePin(FacesContext context, UIComponent component,
+	public void uniqueTitle(FacesContext context, UIComponent component,
 			Object value) {
 
-		String pin = (String) value;
+		String title = (String) value;
 
 		for (Person person : pm.getAllPersons()) {
-			if (person.getPin().equalsIgnoreCase(pin)) {
+			if (person.getName().equalsIgnoreCase(title)) {
 				FacesMessage message = new FacesMessage(
-						"Person with this PIN already exists in database");
+						"Person with this Name already exists in database");
 				message.setSeverity(FacesMessage.SEVERITY_ERROR);
 				throw new ValidatorException(message);
 			}
@@ -82,22 +82,22 @@ public class PersonFormBean implements Serializable {
 	public void validatePinDob(ComponentSystemEvent event) {
 
 		UIForm form = (UIForm) event.getComponent();
-		UIInput pin = (UIInput) form.findComponent("pin");
-		UIInput dob = (UIInput) form.findComponent("dob");
+		UIInput title = (UIInput) form.findComponent("title");
+		UIInput rent = (UIInput) form.findComponent("rent");
 
-		if (pin.getValue() != null && dob.getValue() != null
-				&& pin.getValue().toString().length() >= 2) {
-			String twoDigitsOfPin = pin.getValue().toString().substring(0, 2);
+		if (title.getValue() != null && rent.getValue() != null
+				&& title.getValue().toString().length() >= 2) {
+			String twoDigitsOfTitle = title.getValue().toString().substring(0, 2);
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(((Date) dob.getValue()));
+			cal.setTime(((Date) rent.getValue()));
 
-			String lastDigitsOfDob = ((Integer) cal.get(Calendar.YEAR))
+			String lastDigitsOfRent = ((Integer) cal.get(Calendar.YEAR))
 					.toString().substring(2);
 
-			if (!twoDigitsOfPin.equals(lastDigitsOfDob)) {
+			if (!twoDigitsOfTitle.equals(lastDigitsOfRent)) {
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(form.getClientId(), new FacesMessage(
-						"PIN doesn't match date of birth"));
+						"Title doesn't match date of rent"));
 				context.renderResponse();
 			}
 		}

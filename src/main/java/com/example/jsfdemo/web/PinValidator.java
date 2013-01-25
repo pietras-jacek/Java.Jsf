@@ -13,9 +13,9 @@ public class PinValidator implements Validator {
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {
-		
+
 		String pesel = (String) value;
-		
+
 		if (pesel.length() != 4) {
 			FacesMessage message = new FacesMessage();
 			message.setDetail("PIN musi składać się z 4 cyfr");

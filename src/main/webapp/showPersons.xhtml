@@ -4,23 +4,30 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/templates/default.xhtml">
-	
+
 	<ui:define name="content">
-	
+
     <h:form>
     
      <h:dataTable value="#{personBean.allPersons}" var="item">
       <f:facet name="header">#{msg.personAllLabel}</f:facet>
       
       <h:column>
-        <f:facet name="header">#{msg.personFirstNameLabel}</f:facet>
-        #{item.firstName}
+        <f:facet name="header">#{msg.personNameLabel}</f:facet>
+        #{item.name}
       </h:column>
       
       <h:column>
-        <f:facet name="header">#{msg.personPinLabel}</f:facet>
-        #{item.pin}
+        <f:facet name="header">#{msg.personTitleLabel}</f:facet>
+        #{item.title}
       </h:column>
+      
+      <h:column>
+        <f:facet name="header">#{msg.personRentLabel}</f:facet>
+        #{item.rent}
+      </h:column>
+      
+       
       
       <h:column>
         <f:facet name="header">#{msg.action}</f:facet>
@@ -31,5 +38,5 @@
     </h:form>
       
 	</ui:define>
-	
+
 </ui:composition>
